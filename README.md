@@ -1,45 +1,89 @@
-# ipl-performance
+# IPL Performance Analytics System
 
-# IPL Performance Analytics & Prediction System (2008–2023)
+A comprehensive system for analyzing and predicting IPL match outcomes using historical data (2008-2023).
 
-A reproducible data analytics and machine learning system for analyzing and predicting Indian Premier League (IPL) batting performance using match-level data from 2008–2023.
+## Features
 
-This project converts a visualization-first analysis into a **code-based system** with:
-- a clean data ingestion and normalization pipeline,
-- an analytics API for querying historical performance and trends,
-- a machine learning module to predict next-innings runs,
-- and a lightweight web UI for exploration and forecasts.
+- **ETL Pipeline**: Ingests raw CSV data into a normalized SQLite database.
+- **Analytics API**: FastAPI-based backend serving player stats, leaderboards, and predictions.
+- **ML Module**: XGBoost model to predict team scores based on venue, innings, toss decisions, and opposition.
+- **Web UI**: Modern, responsive frontend (Glassmorphism design) for exploring stats and running match simulations.
 
----
+## Project Structure
 
-## Project Goals
+```
+ipl-performance/
+├── data/               # SQLite database and raw CSVs
+├── src/
+│   ├── api/            # FastAPI backend
+│   ├── etl/            # Data ingestion scripts
+│   ├── ml/             # Machine Learning training & inference
+│   └── ui/             # HTML/CSS/JS frontend
+├── tests/              # Unit tests
+├── config/             # Configuration files
+└── requirements.txt    # Python dependencies
+```
 
-### Engineering
-- Build a reproducible ETL pipeline (raw CSV → normalized database)
-- Define stable, testable performance metrics
-- Expose analytics and predictions via a clean REST API
-- Keep concerns separated: data, analytics, ML, API, UI
+## Setup & Installation
 
-### Analytics & ML
-- Analyze player, team, season, and venue trends
-- Predict expected runs for a team or player in a future innings
-- Avoid data leakage via time-aware training and evaluation
-- Provide interpretable predictions (feature importance)
+**Prerequisites**: Python 3.10+
 
----
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/saksham7saxena/ipl-performance.git
+   cd ipl-performance
+   ```
 
-## Dataset
+2. **Set up Virtual Environment**:
+   ```bash
+   # Windows
+   python -m venv venv
+   .\venv\Scripts\activate
 
-- Source: IPL batting dataset (2008–2023) from Kaggle
-- Each row represents a player’s batting performance in a single match
-- ~15k rows, ~18 columns
+   # Mac/Linux
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
-Typical fields include:
-- season, match_id
-- player, team, opponent
-- venue
-- runs, balls_faced, fours, sixes, strike_rate
+3. **Install Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Raw data is **not committed** to the repo.
+4. **Initialize Database (ETL)**:
+   This processes the raw CSV data into `data/ipl.db`.
+   ```bash
+   # Windows (PowerShell)
+   $env:PYTHONPATH="."; python src/etl/ingest.py
+   
+   # Linux/Mac
+   PYTHONPATH=. python src/etl/ingest.py
+   ```
 
-### Local data path
+## Usage
+
+### 1. Train the Prediction Model
+Before running predictions, train the XGBoost model:
+```bash
+python -m src.ml.train
+```
+
+### 2. Start the API Server
+Launch the backend server:
+```bash
+uvicorn src.api.main:app --reload
+```
+The API will be running at `http://127.0.0.1:8000`.
+
+### 3. Open the Dashboard
+Open `src/ui/index.html` in your web browser. You can now:
+- View Orange/Purple Cap leaderboards.
+- Search for player statistics.
+- Predict match scores using the ML model.
+
+## Testing
+
+To verify the system integrity:
+```bash
+pytest tests
+```

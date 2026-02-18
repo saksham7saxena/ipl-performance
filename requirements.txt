@@ -1,0 +1,10 @@
+pandas
+sqlalchemy
+fastapi
+uvicorn
+scikit-learn
+xgboost
+python-multipart
+jinja2
+httpx
+pytest

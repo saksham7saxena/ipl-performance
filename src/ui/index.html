@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL Analytics & Prediction</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>IPL Analytics Hub</h1>
+        <nav>
+            <button onclick="showSection('welcome')" class="active" id="nav-welcome">Home</button>
+            <button onclick="showSection('dashboard')" id="nav-dashboard">Dashboard</button>
+            <button onclick="showSection('players')" id="nav-players">Player Stats</button>
+            <button onclick="showSection('predict')" id="nav-predict">Predict</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Welcome / Hero Section -->
+        <section id="welcome" class="active">
+            <div class="hero">
+                <h2>Unlock Cricket Insights</h2>
+                <p>Advanced analytics, player performance tracking, and machine-learning powered match predictions at
+                    your fingertips.</p>
+
+                <div class="action-cards">
+                    <div class="action-card" onclick="showSection('dashboard')">
+                        <h3>📊 Dashboard</h3>
+                        <p>View season leaderboards for Orange and Purple caps.</p>
+                    </div>
+                    <div class="action-card" onclick="showSection('players')">
+                        <h3>👤 Player Stats</h3>
+                        <p>Deep dive into career stats, strike rates, and averages.</p>
+                    </div>
+                    <div class="action-card" onclick="showSection('predict')">
+                        <h3>🔮 Predict Score</h3>
+                        <p>AI-powered model to forecast innings totals based on matchups.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard">
+            <h2 class="section-title">Season Leaderboards</h2>
+            <div class="charts-container">
+                <div class="card">
+                    <h3 style="color: #ff6f00; margin-bottom: 1rem;">🟠 Orange Cap Contenders</h3>
+                    <div id="orange-cap-list">
+                        <p style="color:#666; font-style:italic;">Loading data from server...</p>
+                    </div>
+                </div>
+                <!-- Add more dashboard widgets here -->
+                <div class="card">
+                    <h3 style="color: #4a148c; margin-bottom: 1rem;">🟣 Purple Cap Contenders</h3>
+                    <div id="purple-cap-list">
+                        <p style="color:#666; font-style:italic;">Coming Soon...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Player Stats Section -->
+        <section id="players">
+            <h2 class="section-title">Player Analysis</h2>
+            <div class="card">
+                <div class="search-bar">
+                    <label for="player-search">Find a Player</label>
+                    <input type="text" id="player-search" placeholder="Type player name (e.g. 'Kohli', 'Dhoni')..."
+                        onkeyup="searchPlayers()">
+                    <div id="player-results"></div>
+                </div>
+            </div>
+
+            <div id="player-details" class="card" style="display:none; animation: fadeIn 0.5s ease;">
+                <h3 id="p-name"
+                    style="font-size: 1.8rem; color: var(--primary-color); border-bottom: 2px solid #eee; padding-bottom: 0.5rem; margin-bottom: 1rem;">
+                </h3>
+                <div class="stats-grid">
+                    <div class="stat-box"><span>Matches</span><strong id="p-matches">-</strong></div>
+                    <div class="stat-box"><span>Runs</span><strong id="p-runs">-</strong></div>
+                    <div class="stat-box"><span>Average</span><strong id="p-avg">-</strong></div>
+                    <div class="stat-box"><span>Strike Rate</span><strong id="p-sr">-</strong></div>
+                    <div class="stat-box"><span>100s</span><strong id="p-100s">-</strong></div>
+                    <div class="stat-box"><span>50s</span><strong id="p-50s">-</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prediction Section -->
+        <section id="predict">
+            <h2 class="section-title">Match Run Prediction</h2>
+            <div class="card" style="max-width: 600px; margin: 0 auto;">
+                <form id="predict-form" onsubmit="predictRuns(event)">
+                    <div class="form-group">
+                        <label>Batting Team</label>
+                        <select id="pred-team">
+                            <option value="CSK">Chennai Super Kings</option>
+                            <option value="MI">Mumbai Indians</option>
+                            <option value="RCB">Royal Challengers Bangalore</option>
+                            <option value="KKR">Kolkata Knight Riders</option>
+                            <option value="DC">Delhi Capitals</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Opposition</label>
+                        <select id="pred-opp">
+                            <option value="MI">Mumbai Indians</option>
+                            <option value="CSK">Chennai Super Kings</option>
+                            <option value="RCB">Royal Challengers Bangalore</option>
+                            <option value="KKR">Kolkata Knight Riders</option>
+                            <option value="DC">Delhi Capitals</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Venue</label>
+                        <select id="pred-venue">
+                            <option value="Eden Gardens">Eden Gardens</option>
+                            <option value="Wankhede Stadium">Wankhede Stadium</option>
+                            <option value="M Chinnaswamy Stadium">M Chinnaswamy Stadium</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Innings</label>
+                        <select id="pred-innings">
+                            <option value="1">1st Innings</option>
+                            <option value="2">2nd Innings</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="primary-btn">Predict Score</button>
+                    <!-- Small disclaimer -->
+                    <p style="margin-top: 1rem; font-size: 0.8rem; color: #888; text-align: center;">
+                        * Prediction based on historical data and venue trends.
+                    </p>
+                </form>
+                <div id="prediction-result" style="display:none;"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

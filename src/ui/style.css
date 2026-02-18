@@ -1,0 +1,325 @@
+:root {
+    --primary-color: #1a237e;
+    /* Deep Blue */
+    --accent-color: #ff6f00;
+    /* IPL Orange */
+    --bg-gradient: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --text-primary: #333;
+    --text-secondary: #666;
+    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.15);
+    --radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg-gradient);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding-bottom: 2rem;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Header & Nav */
+header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+nav button {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+nav button:hover,
+nav button.active {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Main Container */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Hero Section (Welcome) */
+.hero {
+    text-align: center;
+    color: white;
+    margin-bottom: 3rem;
+    padding: 3rem 1rem;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.action-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.action-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 2rem;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.action-card h3 {
+    margin-bottom: 0.5rem;
+    color: var(--accent-color);
+}
+
+/* Sections */
+section {
+    display: none;
+    /* Controlled by JS */
+    animation: fadeIn 0.5s ease;
+}
+
+section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 2rem;
+}
+
+h2.section-title {
+    color: white;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    border-left: 5px solid var(--accent-color);
+    padding-left: 1rem;
+}
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.stat-box {
+    background: white;
+    padding: 1.5rem 1rem;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #eee;
+    transition: var(--transition);
+}
+
+.stat-box:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
+}
+
+.stat-box span {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.stat-box strong {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+input:focus,
+select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+}
+
+button.primary-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+}
+
+button.primary-btn:hover {
+    background-color: #e65100;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 111, 0, 0.4);
+}
+
+/* Search Results */
+#player-results {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 0.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+#player-results div {
+    padding: 12px 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.2s;
+}
+
+#player-results div:last-child {
+    border-bottom: none;
+}
+
+#player-results div:hover {
+    background-color: #e8eaf6;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Prediction Result */
+#prediction-result {
+    margin-top: 2rem;
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    background: #e3f2fd;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    nav {
+        margin-top: 1rem;
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+}
